@@ -1,0 +1,43 @@
+<main>
+  <div class="title h-25">
+    <h1 class="text-center">{{{title}}}</h1>
+    <hr />
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col g-0">
+        <div class="cartContainer">
+          <button class="btn btn-dark btn-sm me-2">
+            <a
+              class="text-white"
+              href="/{{userCart}}/purchase"
+              style="text-decoration: none;"
+            >
+              Finalizar compra
+            </a>
+
+          </button>
+
+          {{#each product}}
+            <div style="padding: 10px;">
+              <p>Nombre: {{this.title}}</p>
+
+              <p>Descripción: {{this.description}}</p>
+
+              <p>Stock: {{this.stock}}</p>
+
+              <p>Precio: {{this.price}}</p>
+
+              <p>Id: {{this.id}}</p>
+
+              <p> Cantidad: {{this.quantity}}</p>
+
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

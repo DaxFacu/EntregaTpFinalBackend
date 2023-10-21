@@ -1,0 +1,33 @@
+<main>
+  <div class="title h-25">
+
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col g-0">
+        <div class="cartContainer">
+
+          <h1>Compra {{ticketNumber}} exitosa </h1>
+
+          {{#each product}}
+            <div style="padding: 10px;">
+              <h2>No se pudieron procesar los siguientes productos por falta de
+                stock</h2>
+              <p>Nombre: {{this.title}}</p>
+
+              <p>Descripción: {{this.description}}</p>
+
+              <p>Precio: {{this.price}}</p>
+
+              <p> Cantidad Pedida: {{this.quantity}}</p>
+              <p>Stock: {{this.stock}}</p>
+
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
