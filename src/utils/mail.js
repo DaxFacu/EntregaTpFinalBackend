@@ -1,36 +1,38 @@
 import nodemailer from "nodemailer";
-import __dirname from "./utils.js";
+import { __dirname } from "./utils.js";
+import dotenv from "dotenv";
+import { entorno } from "../config/config.js";
+dotenv.config();
 
+//Mail
 const transport = nodemailer.createTransport({
   service: "gmail",
   port: 587,
   auth: {
-    user: process.env.GOOGLE_EMAIL,
-    pass: process.env.GOOGLE_PASS,
+    user: entorno.GOOGLE_EMAIL,
+    pass: entorno.GOOGLE_PASS,
   },
 });
 
-app.get("/mail", async (req, res) => {
-  const result = await transport.sendMail({
-    from: process.env.GOOGLE_EMAIL,
-    to: "daxfacu@gmail.com",
-    subject: "Mail de ejemplo 51395",
+async function sendMail(email) {
+  await transport.sendMail({
+    from: entorno.GOOGLE_EMAIL,
+    to: email,
+    subject: "Cuenta Eliminada",
     html: `
               <div>
-                  <h1>La mejor camada 51395!</h1>
-                  <p>pero un poco silenciosa.... hay que hablar un poco mas!!!!</p>
-                  <img src="cid:image1" />
+                  <h1>Cuenta Eliminada</h1>
+                  <p>Su cuenta fue eliminada por inactividad</p>
               </div>
           `,
-    attachments: [
+    /* attachments: [
       {
-        filename: "image1.gif",
-        path: __dirname + "/images/image1.gif",
-        cid: "image1",
+        //filename: "image1.gif",
+       // path: __dirname + "/images/image1.gif",
+       // cid: "image1",
       },
-    ],
+    ],*/
   });
+}
 
-  //console.log(result);
-  res.send("Email sent");
-});
+export default sendMail;

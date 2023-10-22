@@ -1,4 +1,5 @@
 import { UserMongo } from "../DAO/mongo/users.mongo.js";
+import dateFns from "../utils/date-fns.js";
 
 class UserService {
   async getAllUsers() {
@@ -38,13 +39,11 @@ class UserService {
   }
 
   async deleteInactiveUser() {
-    const date = new Date().getDate().toString().padStart(2, "0");
-
-    const users = await UserMongo.getAllUsers();
+    const date = dateFns.dateAntFormat;
+    //const date = dateFns.getDate();
 
     const deleted = await UserMongo.deleteInactiveUser(date);
     return deleted;
-    //}
   }
 }
 

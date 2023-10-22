@@ -1,4 +1,7 @@
+import dateFns from "../../utils/date-fns.js";
+import sendMail from "../../utils/mail.js";
 import { UserModel } from "./models/users.model.js";
+import axios from "axios";
 
 class UsersMongo {
   constructor() {}
@@ -36,9 +39,22 @@ class UsersMongo {
   };
 
   deleteInactiveUser = async (date) => {
-    const filtro = { loginDate: { $eq: date } };
+    const filtro = { loginDate: { $lte: date } };
+
+    const usersInact = await UserModel.find({
+      loginDate: { $lte: date },
+    });
+
+    const mailsUsersInact = usersInact.map((usuario) => usuario.email);
+
+    //console.log(mailsUsersInact);
+
+    for (let i = 0; i < mailsUsersInact.length; i++) {
+      sendMail(mailsUsersInact[i]);
+    }
+
     const userDeleted = await UserModel.deleteMany({
-      loginDate: { $eq: date },
+      loginDate: { $lte: date },
     });
     return userDeleted;
   };

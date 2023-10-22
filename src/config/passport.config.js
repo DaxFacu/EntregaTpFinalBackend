@@ -6,6 +6,7 @@ const LocalStrategy = local.Strategy;
 import fetch from "node-fetch";
 import GitHubStrategy from "passport-github2";
 import { cartsService } from "../services/carts.service.js";
+import { entorno } from "./config.js";
 
 export function iniPassport() {
   passport.use(
@@ -74,8 +75,8 @@ export function iniPassport() {
     "github",
     new GitHubStrategy(
       {
-        clientID: "Iv1.51ec79ee86043a6a",
-        clientSecret: "",
+        clientID: entorno.GITHUB_CLIENT,
+        clientSecret: entorno.GITHUB_PASSWORD,
         callbackURL: "http://localhost:8080/api/sessions/githubcallback",
       },
       async (accesToken, _, profile, done) => {
@@ -104,6 +105,9 @@ export function iniPassport() {
               lastName: "nolast",
               rol: "user",
               password: "nopass",
+              age: 0,
+              cart: "0",
+              loginDate: "0",
             };
             let userCreated = await UserModel.create(newUser);
             console.log("User Registration succesful");

@@ -19,4 +19,4 @@ function getDate() {
   return dateFormat;
 }
 
-export default { getDate, isAnt };
+export default { getDate, dateAntFormat, isAnt };

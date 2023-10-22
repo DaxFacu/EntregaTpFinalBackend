@@ -31,7 +31,6 @@ app.use(addLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 connectMongo();
-console.log(entorno);
 const productManager = new ProductManager("Products.json");
 
 app.use(
@@ -151,40 +150,6 @@ app.get("/loggerTest", async (req, res) => {
 
 //Cart
 app.use("/carts", viewsRouter);
-
-//Mail
-const transport = nodemailer.createTransport({
-  service: "gmail",
-  port: 587,
-  auth: {
-    user: process.env.GOOGLE_EMAIL,
-    pass: process.env.GOOGLE_PASS,
-  },
-});
-
-app.get("/mail", async (req, res) => {
-  const result = await transport.sendMail({
-    from: process.env.GOOGLE_EMAIL,
-    to: "#",
-    subject: "F - Mail de ejemplo 51395",
-    html: `
-              <div>
-                  <h1>La mejor camada 51395!</h1>
-                  <p>pero un poco silenciosa.... hay que hablar un poco mas!!!!</p>
-                  <img src="cid:image1" />
-              </div>
-          `,
-    attachments: [
-      {
-        filename: "image1.gif",
-        path: __dirname + "/images/image1.gif",
-        cid: "image1",
-      },
-    ],
-  });
-
-  res.send("Email sent");
-});
 
 app.get("*", (req, res) => {
   res.status(404).send({ status: "error", data: "Página no encontrada" });

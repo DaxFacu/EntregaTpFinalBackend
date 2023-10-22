@@ -6,7 +6,7 @@ if (
   process
 ) {
   //console.log("no esta bien el argumento, (dev or prod)");
-  // console.log(process.argv);
+  //console.log(process.argv[2]);
   process.exit;
 }
 dotenv.config({
@@ -16,3 +16,8 @@ dotenv.config({
       : "./.env.production",
 });
 entorno.MONGO_URL = process.env.MONGO_URL;
+entorno.PORT = process.env.PORT;
+entorno.GOOGLE_EMAIL = process.env.GOOGLE_EMAIL;
+entorno.GOOGLE_PASS = process.env.GOOGLE_PASS;
+entorno.GITHUB_CLIENT = process.env.GITHUB_CLIENT;
+entorno.GITHUB_PASSWORD = process.env.GITHUB_PASSWORD;
